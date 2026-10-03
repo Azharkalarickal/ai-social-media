@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: synapse-ai-social-media
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_HOST
+        value: qudraw.com
+      - key: DB_USER
+        value: u918480384_aisocialmedia
+      - key: DB_PASSWORD
+        value: S6uoFeq!
+      - key: DB_NAME
+        value: u918480384_aisocialmedia
+      - key: DB_PORT
+        value: 3306
+      - key: JWT_SECRET
+        generateValue: true
