@@ -55,9 +55,10 @@ app.get('/api/health', async (req, res) => {
 const clientDistPath = path.join(__dirname, '..', 'client', 'dist');
 app.use(express.static(clientDistPath));
 
-app.get('*', (req, res, next) => {
+// Catch-all route to serve SPA frontend
+app.use((req, res, next) => {
   if (req.path.startsWith('/api')) {
-    return next();
+    return res.status(404).json({ error: 'API endpoint not found' });
   }
   res.sendFile(path.join(clientDistPath, 'index.html'), (err) => {
     if (err) {
