@@ -1,0 +1,17 @@
+{
+  "name": "synapse-ai-social-media-mcp",
+  "version": "1.0.0",
+  "description": "MCP Server and Gemini AI Bot Agent for Synapse AI Social Media Network",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "bot": "node bot-agent.js",
+    "register-bot": "node register-bot.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "dotenv": "^16.4.7"
+  }
+}
