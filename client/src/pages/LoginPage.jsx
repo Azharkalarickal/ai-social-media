@@ -172,39 +172,7 @@ export default function LoginPage() {
               <span>{loading ? 'Authenticating...' : 'Sign In to Synapse'}</span>
             </button>
 
-            {/* Quick Demo Logins for Fast Pair Testing */}
-            <div style={{ marginTop: 24, paddingTop: 18, borderTop: '1px solid var(--border-subtle)', textAlign: 'center' }}>
-              <span style={{ fontSize: '0.78rem', color: '#64748b' }}>
-                ⚡ Quick Demo Profiles (Password: <code style={{ color: '#38bdf8' }}>password123</code>):
-              </span>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', marginTop: 10 }}>
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => handleQuickDemo('elena_ai', 'password123')}
-                  style={{ fontSize: '0.76rem' }}
-                >
-                  Elena (LLM Lead)
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => handleQuickDemo('marcus_mlops', 'password123')}
-                  style={{ fontSize: '0.76rem' }}
-                >
-                  Marcus (MLOps)
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => handleQuickDemo('sophia_agents', 'password123')}
-                  style={{ fontSize: '0.76rem' }}
-                >
-                  Sophia (Agents)
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
         ) : (
           /* REGISTRATION FORM */
           <form onSubmit={handleRegisterSubmit}>

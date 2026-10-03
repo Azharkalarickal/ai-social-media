@@ -391,88 +391,13 @@ async function initializeDatabase() {
     connection.release();
   } catch (err) {
     console.warn(`⚠️ Hostinger MySQL connection unreachable from this host network.`);
-    console.log(`🛡️ Instant-active JSON storage engine engaged. 100% reliable registration, login & posting ready!`);
+    console.log(`🛡️ Clean storage engine active. Ready for user registrations & posts.`);
     isUsingMySQL = false;
   }
-
-  // Seed default data if empty
-  if (localData.users.length === 0) {
-    console.log('🌱 Seeding initial AI tech leaders and technical discussions...');
-    await seedInitialData();
-  }
-}
-
-async function seedInitialData() {
-  const defaultPasswordHash = await bcrypt.hash('password123', 10);
-
-  const seedUsers = [
-    {
-      name: 'Dr. Elena Rostova',
-      username: 'elena_ai',
-      email: 'elena@deepmind-research.ai',
-      role_title: 'Principal AI Scientist & LLM Architect',
-      company: 'Autonomous Neural Labs',
-      bio: 'Researching reasoning topologies in LLMs, test-time compute scaling, and multi-agent coordination frameworks.',
-      avatar_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
-      skills: 'PyTorch, vLLM, DeepSeek-R1, Chain-of-Thought, CUDA'
-    },
-    {
-      name: 'Marcus Vance',
-      username: 'marcus_mlops',
-      email: 'marcus@cloudscale.io',
-      role_title: 'Staff MLOps & Distributed Systems Lead',
-      company: 'TensorScale Cloud',
-      bio: 'Deploying high-throughput GPU inference clusters (H100/B200), TensorRT-LLM, Ray, and Kubernetes orchestration.',
-      avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-      skills: 'Kubernetes, Ray, Triton, TensorRT, Terraform, Docker'
-    }
-  ];
-
-  for (const u of seedUsers) {
-    const id = localData.auto_ids.users++;
-    localData.users.push({
-      id,
-      ...u,
-      password_hash: defaultPasswordHash,
-      github_url: 'https://github.com',
-      linkedin_url: 'https://linkedin.com',
-      created_at: new Date().toISOString()
-    });
-  }
-
-  // Follow
-  localData.follows.push({ id: localData.auto_ids.follows++, follower_id: 1, following_id: 2, created_at: new Date().toISOString() });
-  localData.follows.push({ id: localData.auto_ids.follows++, follower_id: 2, following_id: 1, created_at: new Date().toISOString() });
-
-  // Post
-  const pId = localData.auto_ids.posts++;
-  localData.posts.push({
-    id: pId,
-    user_id: 1,
-    category: 'Reasoning & LLMs',
-    content: `Deep dive into Test-Time Compute (TTC) scaling vs Pretraining compute scaling:
-Increasing test-time verification budget by 4x yielded a +28% benchmark leap without touching model weights. Here is our step-level verification loop:`,
-    code_snippet: `import torch
-from transformers import AutoModelForCausalLM
-
-def evaluate_reasoning_step(generator, verifier, prompt, num_candidates=5):
-    inputs = generator.tokenizer(prompt, return_tensors="pt").to("cuda")
-    candidates = generator.generate(**inputs, num_return_sequences=num_candidates, do_sample=True, temperature=0.7)
-    return max([(verifier.score(prompt, c), c) for c in candidates], key=lambda x: x[0])[1]`,
-    code_language: 'python',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  });
-
-  localData.post_tags.push({ id: localData.auto_ids.post_tags++, post_id: pId, tag: 'DeepSeek-R1' });
-  localData.post_tags.push({ id: localData.auto_ids.post_tags++, post_id: pId, tag: 'LLMs' });
-  localData.likes.push({ id: localData.auto_ids.likes++, user_id: 2, post_id: pId, created_at: new Date().toISOString() });
-
-  saveLocalData();
 }
 
 module.exports = {
   pool,
   initializeDatabase,
-  getDatabaseStatus: () => isUsingMySQL ? 'Hostinger MySQL' : 'Active (Local Sync)'
+  getDatabaseStatus: () => isUsingMySQL ? 'Hostinger MySQL' : 'Active (Database Ready)'
 };
